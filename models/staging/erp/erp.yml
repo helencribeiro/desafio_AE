@@ -71,6 +71,36 @@ sources:
           - name: ADDRESSTYPEID
             data_tests:
               - not_null
+      - name: EMPLOYEE
+        columns:
+          - name: BUSINESSENTITYID
+            data_tests:
+              - unique
+              - not_null
+          - name: JOBTITLE
+            data_tests:
+              - not_null
 
+      - name: EMPLOYEEDEPARTMENTHISTORY
+        columns:
+          - name: BUSINESSENTITYID
+            data_tests:
+              - not_null
+          - name: DEPARTMENTID
+            data_tests:
+              - not_null
+          - name: STARTDATE
+            data_tests:
+              - not_null
+          - name: ENDDATE
 
+      - name: DEPARTMENT
+        columns:
+          - name: DEPARTMENTID
+            data_tests:
+              - unique
+              - not_null
+          - name: NAME
+            data_tests:
+              - not_null
 
