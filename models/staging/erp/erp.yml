@@ -1,0 +1,76 @@
+sources:
+  - name: erp 
+    description: Sistema SAP (ERP) da Adventure Works.
+    schema: raw_adventure_works
+    database: fea24_11
+    tables:
+      - name: PERSON
+        columns: 
+          - name: BUSINESSENTITYID
+            data_tests:
+              - unique
+              - not_null
+          - name: FIRSTNAME
+            data_tests:
+              - not_null
+          - name: MIDDLENAME
+          - name: LASTNAME
+            data_tests:
+              - not_null 
+      
+      - name: ADDRESS
+        columns:
+          - name: ADDRESSID
+            data_tests:
+              - unique
+              - not_null
+          - name: ADDRESSLINE1
+            data_tests:
+              - not_null
+          - name: CITY
+            data_tests:
+              - not_null
+          - name: STATEPROVINCEID
+            data_tests:
+              - not_null
+          - name: POSTALCODE
+            data_tests:
+              - not_null
+
+      - name: STATEPROVINCE
+        columns:
+          - name: STATEPROVINCEID
+            data_tests:
+              - unique
+              - not_null
+          - name: NAME
+            data_tests:
+              - not_null
+          - name: COUNTRYREGIONCODE
+            data_tests:
+              - not_null
+
+      - name: COUNTRYREGION
+        columns:
+          - name: COUNTRYREGIONCODE
+            data_tests:
+              - unique
+              - not_null
+          - name: NAME
+            data_tests:
+              - not_null
+
+      - name: BUSINESSENTITYADDRESS
+        columns:
+          - name: BUSINESSENTITYID
+            data_tests:
+              - not_null
+          - name: ADDRESSID
+            data_tests:
+              - not_null
+          - name: ADDRESSTYPEID
+            data_tests:
+              - not_null
+
+
+
