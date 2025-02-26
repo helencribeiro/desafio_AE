@@ -247,3 +247,55 @@ sources:
             description: "Chave primária, identificador único do cartão de crédito."
           - name: CARDTYPE
             description: "Tipo do cartão de crédito."
+
+      - name: PRODUCT
+        description: "Informações básicas de cada produto"
+        columns:
+          - name: PRODUCTID
+            data_tests:
+              - unique
+              - not_null
+          - name: NAME
+            data_tests:
+              - not_null
+          - name: PRODUCTNUMBER
+            data_tests:
+              - not_null
+          - name: LISTPRICE
+          - name: PRODUCTSUBCATEGORYID
+          - name: SELLSTARTDATE
+          - name: SELLENDDATE
+
+      - name: PRODUCTCATEGORY
+        description: "Categoria principal do produto"
+        columns:
+          - name: PRODUCTCATEGORYID
+            data_tests:
+              - unique
+              - not_null
+          - name: NAME
+            data_tests:
+              - not_null
+
+      - name: PRODUCTSUBCATEGORY
+        description: "Subcategoria do produto"
+        columns:
+          - name: PRODUCTSUBCATEGORYID
+            data_tests:
+              - unique
+              - not_null
+          - name: NAME
+            data_tests:
+              - not_null
+
+      - name: PRODUCTLISTPRICEHISTORY
+        description: "Histórico de preços"
+        columns:
+          - name: PRODUCTID
+            data_tests:
+              - not_null
+          - name: STARTDATE
+            data_tests:
+              - not_null
+          - name: ENDDATE
+          - name: LISTPRICE
