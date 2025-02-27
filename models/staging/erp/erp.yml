@@ -299,3 +299,15 @@ sources:
               - not_null
           - name: ENDDATE
           - name: LISTPRICE
+
+      - name: CURRENCY
+        columns:
+          - name: CURRENCYCODE
+            tests:
+              - not_null
+              - unique
+          - name: NAME
+          - name: MODIFIEDDATE
+
+
+ 
