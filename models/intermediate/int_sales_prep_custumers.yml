@@ -1,0 +1,32 @@
+models:
+  - name: dim_customer
+    description: Modelo que cria a dimensão de clientes, enriquecendo os dados de clientes com informações sobre endereço e região.
+    columns:
+      - name: person_pk
+        description: Identificador único do cliente.
+        data_tests:
+          - unique
+          - not_null
+              
+      - name: full_name
+        description: Nome completo do cliente, formado pela concatenação do primeiro nome, nome do meio e sobrenome.
+        data_tests:
+          - not_null
+          
+      - name: address_line1
+        description: Linha do endereço do cliente (endereço principal).
+        
+      - name: city
+        description: Cidade do endereço do cliente.
+        
+      - name: state_province_fk
+        description: Identificador do estado ou província no qual o cliente reside.
+        
+      - name: postal_code
+        description: Código postal do endereço do cliente.
+        
+      - name: state_province_name
+        description: Nome do estado ou província onde o cliente reside.
+        
+      - name: country_region_name
+        description: Nome da região ou país onde o cliente está localizado.
