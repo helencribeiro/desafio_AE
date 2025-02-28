@@ -8,6 +8,7 @@ with
         select
             cast(STATEPROVINCEID as INT) as state_province_pk
             , cast(COUNTRYREGIONCODE as string) as country_region_fk
+            , cast(TERRITORYID as INT) as territory_fk
             , cast(NAME as string) as state_province_name            
         from fonte_state_province
     ) 
