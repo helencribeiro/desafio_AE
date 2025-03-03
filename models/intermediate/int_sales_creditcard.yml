@@ -1,0 +1,10 @@
+models:
+  - name: int_creditcard
+    description: "Tabela intermediária para a dimensão de cartões de crédito, utilizada para análise de tipos de pagamento."
+    columns:
+      - name: credit_card_pk
+        description: "Chave primária do cartão de crédito."
+
+      - name: card_type
+        description: "Tipo de cartão de crédito, como Visa, MasterCard, etc."
+

@@ -1,0 +1,27 @@
+models:
+  - name: int_prep_territory
+    description: Modelo que enriquece os dados de territórios com estados/províncias e regiões do país.
+    columns:
+      - name: state_province_pk
+        description: Identificador único da província ou estado.
+        data_tests:
+          - unique
+          - not_null
+              
+      - name: state_province_name
+        description: Nome da província ou estado.
+        
+      - name: territory_fk
+        description: Chave estrangeira que referencia o território de vendas.
+
+      - name: country_region_pk
+        description: Identificador único da região do país.
+
+      - name: country_region_name
+        description: Nome da região do país.
+
+      - name: sales_territory_pk
+        description: Identificador único do território de vendas.
+ 
+      - name: sales_territory_name
+        description: Nome do território de vendas.
