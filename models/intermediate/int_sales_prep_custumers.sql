@@ -28,9 +28,7 @@ with
     , enriquecer_customer as (
         select
             person.person_pk
-            , person.first_name
-            , person.middle_name
-            , person.last_name
+            , concat(person.first_name, ' ', person.middle_name, ' ', person.last_name) as full_name  
             , address.address_line1
             , address.city
             , address.state_province_fk
