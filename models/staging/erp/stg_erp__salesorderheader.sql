@@ -12,6 +12,8 @@ with fonte_salesorderheader as (
         , cast(CURRENCYRATEID as INT) as currency_rate_fk
         , cast(ORDERDATE as DATE) as order_date
         , cast(SUBTOTAL as NUMERIC) as subtotal
+        , cast(TAXAMT as NUMERIC) as taxamt
+        , cast(FREIGHT as NUMERIC) as freight
         , cast(TOTALDUE as NUMERIC) as total_due
         , cast(STATUS as INT) as status
 
