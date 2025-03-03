@@ -1,0 +1,33 @@
+models:
+  - name: int_sales_prep_date
+    description: "Tabela de dimensão de tempo baseada nas datas da fato vendas."
+    columns:
+      - name: date_pk
+        description: "Chave primária da dimensão tempo, baseada na data do pedido."
+        tests:
+          - not_null
+          - unique
+
+      - name: year
+        description: "Ano da data."
+
+      - name: month
+        description: "Mês numérico da data (1 a 12)."
+
+      - name: day
+        description: "Dia do mês da data (1 a 31)."
+
+      - name: quarter
+        description: "Trimestre do ano (1 a 4)."
+
+      - name: year_week
+        description: "Número da semana no ano."
+
+      - name: month_name
+        description: "Nome do mês (ex: January, February)."
+
+      - name: weekday
+        description: "Número do dia da semana (1 = Domingo, 7 = Sábado no Snowflake)."
+
+      - name: year_month
+        description: "Ano e mês no formato YYYY-MM."

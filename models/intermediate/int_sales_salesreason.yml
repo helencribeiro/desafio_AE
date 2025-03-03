@@ -1,0 +1,9 @@
+models:
+  - name: int_salesreason
+    description: "Tabela intermediária para a dimensão de motivos de venda, utilizada para análise dos motivos das compras."
+    columns:
+      - name: sales_reason_pk
+        description: "Chave primária do motivo de venda."
+
+      - name: sales_reason_name
+        description: "Nome do motivo de venda, como promoção, recomendação, etc."
