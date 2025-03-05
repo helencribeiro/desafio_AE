@@ -1,0 +1,44 @@
+models:
+  - name: converted_sales
+    description: |
+      Este modelo realiza a conversão das vendas para a moeda padrão utilizando as taxas de câmbio disponíveis. 
+      Ele calcula os valores de subtotal, taxa, frete e total devido considerando a conversão de moeda, se necessário.
+    columns:
+      - name: sales_order_pk
+        description: "Identificador único para o pedido."
+        tests:
+          - not_null
+          - unique
+      - name: customer_fk
+        description: "Chave estrangeira para o cliente que realizou o pedido."
+        tests:
+          - not_null
+      - name: credit_card_fk
+        description: "Chave estrangeira para o cartão de crédito utilizado na transação."
+        tests:
+          - not_null
+      - name: sales_territory_fk
+        description: "Chave estrangeira para o território de vendas."
+        tests:
+          - not_null
+      - name: currency_rate_fk
+        description: "Chave estrangeira para a taxa de câmbio utilizada."
+      - name: order_date
+        description: "Data do pedido."
+        tests:
+          - not_null
+      - name: converted_subtotal
+        description: "Valor subtotal convertido para a moeda padrão."
+        tests:
+          - not_null
+      - name: converted_taxamt
+        description: "Valor do imposto convertido para a moeda padrão."
+      - name: converted_freight
+        description: "Valor do frete convertido para a moeda padrão."
+      - name: converted_total_due
+        description: "Valor total devido convertido para a moeda padrão."
+        tests:
+          - not_null
+      - name: status
+        description: "Status do pedido (por exemplo, 'finalizado', 'pendente')."
+

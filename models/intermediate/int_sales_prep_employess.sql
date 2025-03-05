@@ -17,7 +17,7 @@ with
 
     , enriquecer_employees as (
         select
-            employees.employee_pk
+            employees.employee_pk --faz conexoa com SALESPERSON_fk na fato 
             , employees.job_title
             , departments.department_name
             , employee_department_history.start_date
