@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: int_prep_fact_sales
+    description: "Fato Vendas armazena as informações detalhadas sobre as vendas realizadas, incluindo dados de produtos, clientes, cartões de crédito, territórios de vendas, vendedores e motivos de venda."
+    columns:
+      - name: sales_order_pk
+        description: "Identificador único para cada venda realizada."
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_fk
+        description: "Chave estrangeira para a tabela de clientes, representando o cliente que fez a compra."
+        tests:
+          - not_null
+
+      - name: credit_card_fk
+        description: "Chave estrangeira para a tabela de cartões de crédito, representando o cartão de crédito usado na transação."
+        tests:
+          - not_null
+
+      - name: sales_territory_fk
+        description: "Chave estrangeira para a tabela de territórios de vendas, representando o território da venda."
+        tests:
+          - not_null
+
+      - name: currency_rate_fk
+        description: "Chave estrangeira para a tabela de taxas de câmbio, representando a taxa utilizada para conversão da moeda."
+        tests:
+          - not_null
+
+      - name: date_fk
+        description: "Chave estrangeira para a tabela de tempo (dim tempo), representando a data da venda."
+        tests:
+          - not_null
+
+      - name: subtotal
+        description: "Valor subtotal da venda, antes de descontos e impostos."
+
+      - name: total_due
+        description: "Valor total devido após a conversão de moeda, antes de descontos."
+        
+      - name: status
+        description: "Status da venda (ex: Pendente, Concluída, Cancelada)."
+
+      - name: product_fk
+        description: "Chave estrangeira para a tabela de produtos, representando o produto vendido."
+        tests:
+          - not_null
+
+      - name: special_offer_fk
+        description: "Chave estrangeira para a tabela de ofertas especiais, representando a oferta aplicada ao produto."
+        
+      - name: order_qty
+        description: "Quantidade do produto vendido na transação."
+
+      - name: unit_price
+        description: "Preço unitário do produto no momento da venda."
+
+      - name: unit_price_discount
+        description: "Desconto aplicado ao preço unitário do produto."
+
+      - name: total_discount
+        description: "Valor total de desconto aplicado à venda (quantidade x desconto unitário)."
+
+      - name: gross_revenue
+        description: "Receita bruta da venda (quantidade x preço unitário)."
+
+      - name: net_revenue
+        description: "Receita líquida da venda (valor após descontos)."
+
+      - name: special_offer_description
+        description: "Descrição da oferta especial, se houver."
+
+      - name: sales_reason_fk
+        description: "Chave estrangeira para a tabela de motivos de venda, representando o motivo da venda."
+        
+      - name: store_fk
+        description: "Chave estrangeira para a tabela de lojas, representando a loja que fez a venda."
+        
+      - name: salesperson_fk
+        description: "Chave estrangeira para a tabela de vendedores (employees), representando o vendedor que realizou a venda."
+        
+      - name: sales_reason_name
+        description: "Nome do motivo de venda."
+
+      - name: reason_type
+        description: "Tipo do motivo de venda."
+
+

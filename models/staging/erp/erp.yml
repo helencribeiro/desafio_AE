@@ -121,6 +121,10 @@ sources:
             description: "Chave estrangeira referenciando o território de vendas."
           - name: SUBTOTAL
             description: "Subtotal do pedido antes dos impostos e frete."
+          - name: TAXAMT
+            description: "Valor dos impostos."
+          - name: FREIGHT
+            description: "Subtotal do pedido antes dos impostos e frete." 
           - name: TOTALDUE
             description: "Valor total do pedido após impostos e frete."
           - name: CURRENCYRATEID
