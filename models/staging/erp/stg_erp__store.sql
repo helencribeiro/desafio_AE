@@ -13,3 +13,5 @@ with fonte_store as (
 
 select *
 from renomeado
+
+
