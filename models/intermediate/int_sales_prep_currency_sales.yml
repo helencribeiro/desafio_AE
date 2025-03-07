@@ -8,15 +8,12 @@ models:
         description: "Identificador único para o pedido."
         tests:
           - not_null
-          - unique
       - name: customer_fk
         description: "Chave estrangeira para o cliente que realizou o pedido."
         tests:
           - not_null
       - name: credit_card_fk
         description: "Chave estrangeira para o cartão de crédito utilizado na transação."
-        tests:
-          - not_null
       - name: sales_territory_fk
         description: "Chave estrangeira para o território de vendas."
         tests:

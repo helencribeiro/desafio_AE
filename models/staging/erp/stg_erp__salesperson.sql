@@ -5,7 +5,7 @@ with fonte_salesperson as (
 
 , renomeado as (
     select
-        cast(BUSINESSENTITYID as INT) as employee_pk
+        cast(BUSINESSENTITYID as INT) as sales_person_pk
         , cast(TERRITORYID as INT) as sales_territory_fk
         , cast(SALESQUOTA as INT) as sales_quota
         , cast(BONUS as FLOAT) as bonus

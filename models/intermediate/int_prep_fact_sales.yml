@@ -1,91 +1,82 @@
-version: 2
-
 models:
   - name: int_prep_fact_sales
-    description: "Fato Vendas armazena as informações detalhadas sobre as vendas realizadas, incluindo dados de produtos, clientes, cartões de crédito, territórios de vendas, vendedores e motivos de venda."
+    description: "Este modelo contém os dados da tabela de vendas com detalhes como produto, pedidos, vendas e informações de território."
     columns:
-      - name: sales_order_pk
-        description: "Identificador único para cada venda realizada."
+      - name: sales_order_item_pk
+        description: "Chave primária do item de venda."
         tests:
           - unique
           - not_null
-
-      - name: customer_fk
-        description: "Chave estrangeira para a tabela de clientes, representando o cliente que fez a compra."
+      - name: sales_order_pk
+        description: "Chave primária do pedido de venda."
         tests:
           - not_null
-
-      - name: credit_card_fk
-        description: "Chave estrangeira para a tabela de cartões de crédito, representando o cartão de crédito usado na transação."
-        tests:
-          - not_null
-
-      - name: sales_territory_fk
-        description: "Chave estrangeira para a tabela de territórios de vendas, representando o território da venda."
-        tests:
-          - not_null
-
-      - name: currency_rate_fk
-        description: "Chave estrangeira para a tabela de taxas de câmbio, representando a taxa utilizada para conversão da moeda."
-        tests:
-          - not_null
-
-      - name: date_fk
-        description: "Chave estrangeira para a tabela de tempo (dim tempo), representando a data da venda."
-        tests:
-          - not_null
-
-      - name: subtotal
-        description: "Valor subtotal da venda, antes de descontos e impostos."
-
-      - name: total_due
-        description: "Valor total devido após a conversão de moeda, antes de descontos."
-        
-      - name: status
-        description: "Status da venda (ex: Pendente, Concluída, Cancelada)."
-
       - name: product_fk
-        description: "Chave estrangeira para a tabela de produtos, representando o produto vendido."
+        description: "Chave estrangeira do produto."
         tests:
           - not_null
-
-      - name: special_offer_fk
-        description: "Chave estrangeira para a tabela de ofertas especiais, representando a oferta aplicada ao produto."
-        
+      - name: customer_fk
+        description: "Chave estrangeira do cliente."
+        tests:
+          - not_null
+      - name: credit_card_fk
+        description: "Chave estrangeira do cartão de crédito utilizado na compra."
+        tests:
+          - not_null
+      - name: sales_territory_fk
+        description: "Chave estrangeira do território de vendas."
+        tests:
+          - not_null
+      - name: salesperson_fk
+        description: "Chave estrangeira do vendedor responsável pela venda."
+        tests:
+          - not_null
+      - name: sales_territory_pk
+        description: "Chave primária do território de vendas."
+        tests:
+          - not_null
+      - name: date_fk
+        description: "Data do pedido (pode ser a data do pedido ou outra data relacionada ao modelo de vendas)."
+        tests:
+          - not_null
       - name: order_qty
-        description: "Quantidade do produto vendido na transação."
-
+        description: "Quantidade de itens do pedido."
+        tests:
+          - not_null
       - name: unit_price
-        description: "Preço unitário do produto no momento da venda."
-
+        description: "Preço unitário do produto."
+        tests:
+          - not_null
       - name: unit_price_discount
         description: "Desconto aplicado ao preço unitário do produto."
-
-      - name: total_discount
-        description: "Valor total de desconto aplicado à venda (quantidade x desconto unitário)."
-
       - name: gross_revenue
-        description: "Receita bruta da venda (quantidade x preço unitário)."
-
+        description: "Receita bruta da venda, sem descontos."
+      - name: total_discount
+        description: "Desconto total aplicado ao pedido."
       - name: net_revenue
-        description: "Receita líquida da venda (valor após descontos)."
-
-      - name: special_offer_description
-        description: "Descrição da oferta especial, se houver."
-
-      - name: sales_reason_fk
-        description: "Chave estrangeira para a tabela de motivos de venda, representando o motivo da venda."
-        
-      - name: store_fk
-        description: "Chave estrangeira para a tabela de lojas, representando a loja que fez a venda."
-        
-      - name: salesperson_fk
-        description: "Chave estrangeira para a tabela de vendedores (employees), representando o vendedor que realizou a venda."
-        
+        description: "Receita líquida após descontos."
+      - name: freight_allocation
+        description: "Alocação do frete proporcional ao item."
+      - name: tax_allocation
+        description: "Alocação do imposto proporcional ao item."
+      - name: total_per_item
+        description: "Valor total por item, incluindo frete e imposto."
+      - name: subtotal
+        description: "Subtotal do pedido antes do valor total."
+      - name: total_order_value
+        description: "Valor total do pedido, incluindo frete e impostos."
       - name: sales_reason_name
-        description: "Nome do motivo de venda."
-
+        description: "Nome do motivo de venda (explicação sobre a razão de uma venda ocorrer)."
+      - name: store_name
+        description: "Nome da loja onde a venda foi realizada."
       - name: reason_type
         description: "Tipo do motivo de venda."
+      - name: status
+        description: "Status atual do pedido, conforme a tabela de métricas."
 
+    meta:
+      owner: "Equipe de vendas"
+      last_modified: "2025-03-07"
+      source: "Modelo de vendas consolidado"
+      documentation: "Este modelo coleta informações detalhadas sobre pedidos, produtos, clientes, vendedores e motivos de vendas."
 
