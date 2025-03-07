@@ -1,85 +1,86 @@
 WITH 
-    currency_sales AS (
+    metrics AS (
         SELECT *
-        FROM {{ ref('int_sales_prep_currency_sales') }}
+        FROM {{ ref('int_sales_prep_metrics') }}  -- Novo modelo com granularidade correta
     ),
-
-    order_details AS (
-        SELECT *
-        FROM {{ ref('stg_erp__salesorderdetail') }}
-    ),
-
     credit_cards AS (
         SELECT *
         FROM {{ ref('stg_erp__creditcard') }}
     ),
-
     sales_territories AS (
         SELECT *
         FROM {{ ref('stg_erp__salesterritory') }}
     ),
-
     special_offers AS (
         SELECT *
         FROM {{ ref('stg_erp__specialoffer') }}
     ),
-
     sales_reasons AS (
         SELECT *
         FROM {{ ref('stg_erp__salesreason') }}
     ),
-
     salespeople AS (
         SELECT *
         FROM {{ ref('stg_erp__salesperson') }}
     ),
-
     order_sales_reasons AS (
         SELECT *
         FROM {{ ref('stg_erp__salesorderheadersalesreason') }}
     ),
-
     sales_store AS (
         SELECT *
         FROM {{ ref('int_sales_prep_store') }}
     ),
-
     joined AS (
         SELECT 
-            order_details.sales_order_fk AS sales_order_pk,
-            currency_sales.customer_fk,
-            currency_sales.credit_card_fk,
-            currency_sales.sales_territory_fk,
-            currency_sales.currency_rate_fk,
-            currency_sales.order_date AS date_fk,
-            currency_sales.converted_subtotal AS subtotal,
-            currency_sales.converted_total_due AS total_due,
-            currency_sales.status,
-            order_details.product_fk,
-            order_details.special_offer_fk,
-            order_details.order_qty,
-            order_details.unit_price,
-            order_details.unit_price_discount,
-            order_details.order_qty * order_details.unit_price_discount AS total_discount,
-            order_details.order_qty * order_details.unit_price AS gross_revenue,
-            currency_sales.converted_total_due AS net_revenue,
-            special_offers.special_offer_description,
-            order_sales_reasons.sales_reason_fk, -- Garantindo que vem da tabela correta
-            sales_store.store_fk,  
-            sales_store.salesperson_fk,  
-            sales_store.sales_reason_name,  -- Garantindo que vem da tabela correta
-            sales_store.reason_type  -- Garantindo que vem da tabela correta
-        FROM order_details
-        INNER JOIN currency_sales 
-            ON order_details.sales_order_fk = currency_sales.sales_order_pk
+            -- PKs
+            metrics.sales_order_item_pk,  -- Chave do item de venda
+            metrics.sales_order_fk AS sales_order_pk,  -- Chave do pedido
+            metrics.product_fk,  -- Chave do produto
+
+            -- FKs
+            metrics.customer_fk,  -- FK do cliente
+            metrics.credit_card_fk,  -- FK do cartão de crédito
+            metrics.sales_territory_fk,  -- FK do território de vendas
+            sales_store.salesperson_fk,  -- FK do vendedor
+            --order_sales_reasons.sales_reason_fk,  -- FK do motivo de venda
+            sales_territories.sales_territory_pk,  -- Chave do território (por estado/província)
+
+            -- Datas
+            -- Assumindo que a data está em metrics, se necessário, adicione data específica
+            metrics.order_date AS date_fk,
+
+            -- Colunas numéricas
+            metrics.order_qty,  -- Quantidade do pedido
+            metrics.unit_price,  -- Preço unitário
+            metrics.unit_price_discount,  -- Desconto no preço unitário
+            metrics.gross_revenue,  -- Receita bruta
+            metrics.total_discount,  -- Desconto total
+            metrics.net_revenue,  -- Receita líquida
+            metrics.freight_allocation,  -- Alocação de frete
+            metrics.tax_allocation,  -- Alocação de imposto
+            metrics.total_per_item,  -- Total por item (incluindo frete e imposto)
+            metrics.subtotal,  -- Subtotal do pedido
+            metrics.total_order_value,  -- Valor total do pedido
+
+            -- Colunas categóricas
+            sales_store.sales_reason_name,  -- Nome do motivo de venda
+            sales_store.store_name,  -- Nome da loja
+            -- STATUS do pedido, já incluído no modelo de métricas
+            sales_store.reason_type,  -- Tipo de motivo de venda
+            metrics.status  -- Status do pedido
+
+        FROM metrics  
         LEFT JOIN special_offers 
-            ON order_details.special_offer_fk = special_offers.special_offer_pk
+            ON metrics.product_fk = special_offers.special_offer_pk
         LEFT JOIN order_sales_reasons 
-            ON currency_sales.sales_order_pk = order_sales_reasons.sales_order_fk
+            ON metrics.sales_order_fk = order_sales_reasons.sales_order_fk
         LEFT JOIN sales_reasons 
             ON order_sales_reasons.sales_reason_fk = sales_reasons.sales_reason_pk
         LEFT JOIN sales_store  
-            ON currency_sales.sales_order_pk = sales_store.sales_order_pk
+            ON metrics.sales_order_fk = sales_store.sales_order_pk
+        LEFT JOIN sales_territories
+            ON metrics.sales_territory_fk = sales_territories.sales_territory_pk  -- Junção com territórios
     )
 
 SELECT * 

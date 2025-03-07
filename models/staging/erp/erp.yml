@@ -208,14 +208,6 @@ sources:
           - name: DISCOUNTPCT
             description: "Porcentagem de desconto da oferta especial."
 
-      - name: SPECIALOFFERPRODUCT
-        description: "Tabela que relaciona produtos a ofertas especiais."
-        columns:
-          - name: SPECIALOFFERID
-            description: "Chave estrangeira referenciando a oferta especial."
-          - name: PRODUCTID
-            description: "Chave estrangeira referenciando o produto."
-
       - name: STORE
         description: "Tabela que contém informações sobre as lojas."
         columns:
@@ -304,14 +296,6 @@ sources:
           - name: ENDDATE
           - name: LISTPRICE
 
-      - name: CURRENCY
-        columns:
-          - name: CURRENCYCODE
-            tests:
-              - not_null
-              - unique
-          - name: NAME
-          - name: MODIFIEDDATE
 
 
  
