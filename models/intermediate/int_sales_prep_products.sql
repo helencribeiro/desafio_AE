@@ -1,5 +1,4 @@
 WITH 
-    /* Chamada dos modelos necessários. */
     product AS (
         SELECT * FROM {{ ref('stg_erp__product') }}
     ),
@@ -30,8 +29,15 @@ WITH
         FROM product p
         LEFT JOIN productsubcategory ps ON p.product_subcategory_fk = ps.product_subcategory_pk
         LEFT JOIN productcategory pc ON ps.product_category_fk = pc.product_category_pk
-        LEFT JOIN productlistpricehistory plh ON p.product_pk = plh.product_fk
+        LEFT JOIN productlistpricehistory plh 
+            ON p.product_pk = plh.product_fk
+            AND plh.modified_date = (
+                SELECT MAX(modified_date) 
+                FROM {{ ref('stg_erp__productlistpricehistory') }} ph
+                WHERE ph.product_fk = p.product_pk
+            )
     )
 
 SELECT *
 FROM enriquecerproducts
+
