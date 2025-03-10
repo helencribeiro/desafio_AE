@@ -10,6 +10,7 @@ with
             , cast(STARTDATE as TIMESTAMP) as start_date
             , cast(ENDDATE as TIMESTAMP) as end_date
             , cast(LISTPRICE as DECIMAL(10,2)) as list_price
+            , CAST(MODIFIEDDATE AS TIMESTAMP) AS modified_date
         from fonte_productlistpricehistory
     ) 
 

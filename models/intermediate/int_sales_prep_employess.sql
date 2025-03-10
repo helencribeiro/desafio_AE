@@ -13,6 +13,7 @@ with
     , employee_department_history as (
         select *
         from {{ ref('stg_erp__employeedepartmenthistory') }}
+        WHERE end_date IS NULL
     )
 
     , enriquecer_employees as (
@@ -29,3 +30,4 @@ with
 
 select *
 from enriquecer_employees
+

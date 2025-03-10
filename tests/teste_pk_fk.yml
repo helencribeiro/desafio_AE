@@ -1,5 +1,3 @@
-version: 2
-
 models:
   - name: fact_sales
     description: "Tabela fato contendo todas as vendas."
@@ -24,7 +22,7 @@ models:
         tests:
           - relationships:
               to: ref('dim_custumers')
-              field: PERSON_PK
+              field: CUSTOMER_PK
 
       - name: CREDIT_CARD_FK
         description: "Chave estrangeira para a dimensão de cartões de crédito"

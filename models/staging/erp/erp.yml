@@ -295,6 +295,7 @@ sources:
               - not_null
           - name: ENDDATE
           - name: LISTPRICE
+          - name: MODIFIEDDATE
 
 
 
