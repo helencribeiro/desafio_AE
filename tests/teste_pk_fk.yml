@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: "Tabela fato contendo todas as vendas."
+    columns:
+      # PRIMARY KEY (PK)
+      - name: SALES_ORDER_ITEM_PK
+        description: "Chave primária da tabela de vendas"
+        tests:
+          - unique
+          - not_null
+
+      # FOREIGN KEYS (FK) - Relacionamentos com dimensões
+      - name: PRODUCT_FK
+        description: "Chave estrangeira para a dimensão de produtos"
+        tests:
+          - relationships:
+              to: ref('dim_products')
+              field: PRODUCT_PK
+
+      - name: CUSTOMER_FK
+        description: "Chave estrangeira para a dimensão de clientes"
+        tests:
+          - relationships:
+              to: ref('dim_custumers')
+              field: PERSON_PK
+
+      - name: CREDIT_CARD_FK
+        description: "Chave estrangeira para a dimensão de cartões de crédito"
+        tests:
+          - relationships:
+              to: ref('dim_creditcard')
+              field: CREDIT_CARD_PK
+
+      - name: SALES_TERRITORY_FK
+        description: "Chave estrangeira para a dimensão de territórios de vendas"
+        tests:
+          - relationships:
+              to: ref('dim_territory')
+              field: SALES_TERRITORY_PK
+
+      - name: SALESPERSON_FK
+        description: "Chave estrangeira para a dimensão de funcionários (vendedores)"
+        tests:
+          - relationships:
+              to: ref('dim_employess')
+              field: EMPLOYEE_PK
+
+      - name: DATE_FK
+        description: "Chave estrangeira para a dimensão de datas"
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: DATE_PK
+
+  - name: dim_creditcard
+    description: "Dimensão contendo informações dos cartões de crédito"
+    columns:
+      - name: CREDIT_CARD_PK
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_custumers
+    description: "Dimensão de clientes"
+    columns:
+      - name: PERSON_PK
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: "Dimensão de datas"
+    columns:
+      - name: DATE_PK
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_employess
+    description: "Dimensão de funcionários"
+    columns:
+      - name: EMPLOYEE_PK
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_products
+    description: "Dimensão de produtos"
+    columns:
+      - name: PRODUCT_PK
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_territory
+    description: "Dimensão de territórios de vendas"
+    columns:
+      - name: SALES_TERRITORY_PK
+        tests:
+          - unique
+          - not_null

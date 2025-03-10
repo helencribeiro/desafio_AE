@@ -44,8 +44,6 @@ WITH
             metrics.sales_territory_fk,  -- FK do território de vendas
             sales_store.salesperson_fk,  -- FK do vendedor
             --order_sales_reasons.sales_reason_fk,  -- FK do motivo de venda
-            sales_territories.sales_territory_pk,  -- Chave do território (por estado/província)
-
             -- Datas
             -- Assumindo que a data está em metrics, se necessário, adicione data específica
             metrics.order_date AS date_fk,
