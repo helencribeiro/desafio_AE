@@ -1,33 +1,29 @@
+version: 2
+
 models:
   - name: int_sales_prep_date
-    description: "Tabela de dimensão de tempo baseada nas datas da fato vendas."
+    description: |
+      A tabela `int_prep_date` contém informações sobre as datas únicas extraídas da tabela de vendas (`stg_erp__salesorderheader`). 
+      Para cada data, são extraídas diversas informações como ano, mês, dia, trimestre, semana do ano, nome do mês, dia da semana e ano-mês.
     columns:
       - name: date_pk
-        description: "Chave primária da dimensão tempo, baseada na data do pedido."
+        description: "Data única identificada no campo `order_date` da tabela `stg_erp__salesorderheader`."
         tests:
           - not_null
           - unique
-
       - name: year
-        description: "Ano da data."
-
+        description: "Ano extraído da `date_pk`."
       - name: month
-        description: "Mês numérico da data (1 a 12)."
-
+        description: "Mês extraído da `date_pk`."
       - name: day
-        description: "Dia do mês da data (1 a 31)."
-
+        description: "Dia do mês extraído da `date_pk`."
       - name: quarter
-        description: "Trimestre do ano (1 a 4)."
-
+        description: "Trimestre extraído da `date_pk`."
       - name: year_week
-        description: "Número da semana no ano."
-
+        description: "Semana do ano extraída da `date_pk`."
       - name: month_name
-        description: "Nome do mês (ex: January, February)."
-
+        description: "Nome do mês extraído da `date_pk`."
       - name: weekday
-        description: "Número do dia da semana (1 = Domingo, 7 = Sábado no Snowflake)."
-
+        description: "Dia da semana extraído da `date_pk`, onde 1 é segunda-feira e 7 é domingo."
       - name: year_month
-        description: "Ano e mês no formato YYYY-MM."
+        description: "Combinação do ano e mês extraída da `date_pk` no formato 'YYYY-MM'."

@@ -1,7 +1,7 @@
 with
     fct_sales as (
         select *
-        from {{ ref('int_prep_fact_sales') }}
+        from {{ ref('int_sales_prep_metrics') }}
     )
 
 select *

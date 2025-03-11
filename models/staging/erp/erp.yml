@@ -16,7 +16,7 @@ sources:
           - name: MIDDLENAME
           - name: LASTNAME
             data_tests:
-              - not_null 
+              - not_null
       
       - name: ADDRESS
         columns:
@@ -105,147 +105,73 @@ sources:
               - not_null
 
       - name: SALESORDERHEADER
-        description: "Tabela que armazena informações sobre os pedidos de venda."
         columns:
           - name: SALESORDERID
-            description: "Chave primária da tabela, identificador único do pedido de venda."
           - name: ORDERDATE
-            description: "Data em que o pedido foi realizado."
           - name: STATUS
-            description: "Status do pedido de venda."
           - name: CUSTOMERID
-            description: "Chave estrangeira referenciando o cliente."
           - name: CREDITCARDID
-            description: "Chave estrangeira referenciando o cartão de crédito usado no pagamento."
           - name: TERRITORYID
-            description: "Chave estrangeira referenciando o território de vendas."
           - name: SUBTOTAL
-            description: "Subtotal do pedido antes dos impostos e frete."
           - name: TAXAMT
-            description: "Valor dos impostos."
           - name: FREIGHT
-            description: "Subtotal do pedido antes dos impostos e frete." 
           - name: TOTALDUE
-            description: "Valor total do pedido após impostos e frete."
           - name: CURRENCYRATEID
-            description: "Chave estrangeira referenciando a taxa de câmbio utilizada."
+          - name: SALESPERSONID
+          - name: SHIPTOADDRESSID
 
       - name: SALESORDERDETAIL
-        description: "Tabela que armazena os detalhes dos itens vendidos em cada pedido."
         columns:
           - name: SALESORDERID
-            description: "Chave estrangeira referenciando o pedido de venda."
           - name: PRODUCTID
-            description: "Chave estrangeira referenciando o produto vendido."
           - name: ORDERQTY
-            description: "Quantidade do produto vendido."
           - name: UNITPRICE
-            description: "Preço unitário do produto."
           - name: UNITPRICEDISCOUNT
-            description: "Desconto aplicado no preço unitário."
 
       - name: CUSTOMER
-        description: "Tabela que contém informações sobre os clientes."
         columns:
           - name: CUSTOMERID
-            description: "Chave primária da tabela, identificador único do cliente."
           - name: PERSONID
-            description: "Identificador da pessoa associada ao cliente."
           - name: STOREID
-            description: "Chave estrangeira referenciando a loja associada ao cliente."
           - name: TERRITORYID
-            description: "Chave estrangeira referenciando o território de vendas do cliente."
 
       - name: SALESREASON
-        description: "Tabela que contém os motivos de vendas associados aos pedidos."
         columns:
           - name: SALESREASONID
-            description: "Chave primária, identificador único do motivo de venda."
           - name: NAME
-            description: "Nome do motivo de venda."
 
       - name: SALESORDERHEADERSALESREASON
-        description: "Tabela que relaciona pedidos de venda a motivos de venda."
         columns:
           - name: SALESORDERID
-            description: "Chave estrangeira referenciando o pedido de venda."
           - name: SALESREASONID
-            description: "Chave estrangeira referenciando o motivo de venda."
 
       - name: SALESTERRITORY
-        description: "Tabela que contém informações sobre territórios de venda."
         columns:
           - name: TERRITORYID
-            description: "Chave primária da tabela, identificador único do território."
           - name: NAME
-            description: "Nome do território de vendas."
           - name: COUNTRYREGIONCODE
-            description: "Código do país/região do território."
 
       - name: CURRENCYRATE
-        description: "Tabela que contém as taxas de câmbio utilizadas nos pedidos."
         columns:
           - name: CURRENCYRATEID
-            description: "Chave primária, identificador único da taxa de câmbio."
           - name: CURRENCYRATEDATE
-            description: "Data da taxa de câmbio registrada."
           - name: FROMCURRENCYCODE
-            description: "Código da moeda original."
           - name: TOCURRENCYCODE
-            description: "Código da moeda de destino."
           - name: AVERAGERATE
-            description: "Taxa de câmbio média registrada no dia."
           - name: ENDOFDAYRATE
-            description: "Taxa de câmbio no final do dia."
-
-      - name: SPECIALOFFER
-        description: "Tabela que contém informações sobre ofertas e promoções especiais."
-        columns:
-          - name: SPECIALOFFERID
-            description: "Chave primária, identificador único da oferta especial."
-          - name: DESCRIPTION
-            description: "Descrição da oferta especial."
-          - name: DISCOUNTPCT
-            description: "Porcentagem de desconto da oferta especial."
 
       - name: STORE
-        description: "Tabela que contém informações sobre as lojas."
         columns:
           - name: BUSINESSENTITYID
-            description: "Chave primária, identificador único da loja."
           - name: NAME
-            description: "Nome da loja."
           - name: SALESPERSONID
-            description: "Chave estrangeira referenciando o vendedor responsável pela loja."
-
-      - name: SALESPERSON
-        description: "Tabela que contém informações sobre os vendedores."
-        columns:
-          - name: BUSINESSENTITYID
-            description: "Chave primária, identificador único do vendedor."
-          - name: TERRITORYID
-            description: "Chave estrangeira referenciando o território de vendas do vendedor."
-          - name: SALESQUOTA
-            description: "Meta de vendas atribuída ao vendedor."
-          - name: BONUS
-            description: "Bônus recebido pelo vendedor."
-          - name: COMMISSIONPCT
-            description: "Percentual de comissão do vendedor."
-          - name: SALESYTD
-            description: "Total de vendas do vendedor no ano até o momento."
-          - name: SALESLASTYEAR
-            description: "Total de vendas do vendedor no ano anterior."
 
       - name: CREDITCARD
-        description: "Tabela que contém informações sobre os cartões de crédito utilizados."
         columns:
           - name: CREDITCARDID
-            description: "Chave primária, identificador único do cartão de crédito."
           - name: CARDTYPE
-            description: "Tipo do cartão de crédito."
 
       - name: PRODUCT
-        description: "Informações básicas de cada produto"
         columns:
           - name: PRODUCTID
             data_tests:
@@ -263,7 +189,6 @@ sources:
           - name: SELLENDDATE
 
       - name: PRODUCTCATEGORY
-        description: "Categoria principal do produto"
         columns:
           - name: PRODUCTCATEGORYID
             data_tests:
@@ -274,7 +199,6 @@ sources:
               - not_null
 
       - name: PRODUCTSUBCATEGORY
-        description: "Subcategoria do produto"
         columns:
           - name: PRODUCTSUBCATEGORYID
             data_tests:
@@ -285,7 +209,6 @@ sources:
               - not_null
 
       - name: PRODUCTLISTPRICEHISTORY
-        description: "Histórico de preços"
         columns:
           - name: PRODUCTID
             data_tests:

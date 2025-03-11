@@ -1,0 +1,183 @@
+models:
+  - name: fact_sales
+    description: "Tabela fato contendo informações de vendas"
+    columns:
+      - name: SALES_ORDER_ITEM_PK
+        description: "Chave primária da fato vendas"
+        tests:
+          - unique
+          - not_null
+      - name: SALES_ORDER_FK
+        description: "Chave estrangeira para relacionamento com dim_salesreason"
+      - name: CUSTOMER_FK
+        description: "Chave estrangeira para relacionamento com dim_customers"
+      - name: CREDIT_CARD_FK
+        description: "Chave estrangeira para relacionamento com dim_creditcard"
+      - name: ADDRESS_FK
+        description: "Chave estrangeira para relacionamento com dim_territory"
+        tests:
+          - relationships:
+              to: ref('dim_territory')
+              field: ADDRESS_PK
+      - name: SALES_PERSON_FK
+        description: "Chave estrangeira para relacionamento com dim_employees"
+      - name: ORDER_DATE
+        description: "Chave estrangeira para relacionamento com dim_date"
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: DATE_PK
+      - name: PRODUCT_FK
+        description: "Chave estrangeira para relacionamento com dim_products"
+      - name: ORDER_QTY
+        description: "Quantidade de produtos vendidos"
+      - name: UNIT_PRICE
+        description: "Preço unitário do produto"
+      - name: UNIT_PRICE_DISCOUNT
+        description: "Desconto aplicado no preço unitário"
+      - name: GROSS_REVENUE
+        description: "Receita bruta"
+      - name: TOTAL_DISCOUNT
+        description: "Valor total de descontos"
+      - name: NET_REVENUE
+        description: "Receita líquida"
+      - name: FREIGHT_ALLOCATION
+        description: "Valor alocado para frete"
+      - name: TAX_ALLOCATION
+        description: "Valor alocado para impostos"
+      - name: TOTAL_PER_ITEM
+        description: "Valor total por item"
+      - name: SUBTOTAL
+        description: "Subtotal da venda"
+      - name: TOTAL_ORDER_VALUE
+        description: "Valor total do pedido"
+      - name: STATUS
+        description: "Status do pedido"
+
+  - name: dim_creditcard
+    description: "Dimensão de cartões de crédito"
+    columns:
+      - name: CREDIT_CARD_PK
+        description: "Chave primária da dimensão"
+        tests:
+          - unique
+          - not_null
+      - name: CARD_TYPE
+        description: "Tipo do cartão"
+
+  - name: dim_customers
+    description: "Dimensão de clientes"
+    columns:
+      - name: CUSTOMER_PK
+        description: "Chave primária da dimensão"
+        tests:
+          - unique
+          - not_null
+      - name: FULL_NAME
+        description: "Nome completo do cliente"
+      - name: SALES_TERRITORY_FK
+        description: "Chave estrangeira para sales territory (não usada na fato vendas)"
+      - name: STORE_NAME
+        description: "Nome da loja do cliente"
+      - name: ADDRESS_LINE1
+        description: "Endereço do cliente"
+      - name: CITY
+        description: "Cidade do cliente"
+
+  - name: dim_date
+    description: "Dimensão de datas"
+    columns:
+      - name: DATE_PK
+        description: "Chave primária da dimensão"
+        tests:
+          - unique
+          - not_null
+      - name: YEAR
+        description: "Ano"
+      - name: MONTH
+        description: "Mês"
+      - name: DAY
+        description: "Dia"
+      - name: QUARTER
+        description: "Trimestre"
+      - name: YEAR_WEEK
+        description: "Semana do ano"
+      - name: MONTH_NAME
+        description: "Nome do mês"
+      - name: WEEKDAY
+        description: "Dia da semana"
+      - name: YEAR_MONTH
+        description: "Ano e mês"
+
+  - name: dim_employees
+    description: "Dimensão de empregados"
+    columns:
+      - name: EMPLOYEE_PK
+        description: "Chave primária da dimensão"
+        tests:
+          - unique
+          - not_null
+      - name: JOB_TITLE
+        description: "Cargo"
+      - name: DEPARTMENT_NAME
+        description: "Departamento"
+      - name: START_DATE
+        description: "Data de início"
+      - name: END_DATE
+        description: "Data de saída"
+
+  - name: dim_products
+    description: "Dimensão de produtos"
+    columns:
+      - name: PRODUCT_PK
+        description: "Chave primária da dimensão"
+        tests:
+          - unique
+          - not_null
+      - name: PRODUCT_NAME
+        description: "Nome do produto"
+      - name: PRODUCT_NUMBER
+        description: "Código do produto"
+      - name: LIST_PRICE
+        description: "Preço de lista"
+      - name: SELL_START_DATE
+        description: "Data de início da venda"
+      - name: SELL_END_DATE
+        description: "Data de fim da venda"
+      - name: CATEGORY_NAME
+        description: "Categoria do produto"
+      - name: SUBCATEGORY_NAME
+        description: "Subcategoria do produto"
+      - name: HISTORICAL_LIST_PRICE
+        description: "Histórico de preços"
+
+  - name: dim_territory
+    description: "Dimensão de território"
+    columns:
+      - name: ADDRESS_PK
+        description: "Chave primária da dimensão"
+        tests:
+          - unique
+          - not_null
+      - name: CITY
+        description: "Cidade"
+      - name: POSTAL_CODE
+        description: "Código postal"
+      - name: STATE_PROVINCE_PK
+        description: "Chave estrangeira para estado/província"
+      - name: STATE_PROVINCE_NAME
+        description: "Nome do estado/província"
+      - name: COUNTRY_REGION_PK
+        description: "Chave estrangeira para país"
+      - name: COUNTRY_REGION_NAME
+        description: "Nome do país"
+
+  - name: dim_salesreason
+    description: "Dimensão de motivos de venda"
+    columns:
+      - name: SALES_ORDER_FK
+        description: "Chave estrangeira para a fato vendas"
+      - name: SALES_REASON_FK
+        description: "Chave primária da dimensão"
+      - name: SALES_REASON_NAME
+        description: "Nome do motivo da venda"

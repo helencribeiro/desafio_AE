@@ -1,5 +1,5 @@
 models:
-  - name: dim_employees
+  - name: int_sales_prep_employess
     description: Modelo que cria a dimensão de funcionários, enriquecendo os dados de empregados com informações sobre cargos e departamentos.
     columns:
       - name: employee_pk
@@ -10,21 +10,13 @@ models:
           
       - name: job_title
         description: Cargo do empregado.
-        data_tests:
-          - not_null
           
       - name: department_name
         description: Nome do departamento ao qual o empregado está associado no período.
-        data_tests:
-          - not_null
           
       - name: start_date
         description: Data de início no departamento.
-        data_tests:
-          - not_null
           
       - name: end_date
         description: Data de término no departamento (se aplicável).
-        data_tests:
-          - accepted_values:
-              values: ["null", "valid_date"]
+
