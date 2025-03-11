@@ -1,5 +1,5 @@
 models:
-  - name: enriquecerproducts
+  - name: int_sales_prep_products
     description: "Modelo que enriquece as informações dos produtos com categorias, subcategorias e histórico de preços."
     columns:
       - name: product_pk

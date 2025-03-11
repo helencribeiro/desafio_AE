@@ -1,34 +1,34 @@
 with
-    /* Chamada dos modelos necessários. */
-    stateprovince as (
+    fonte_address as (
+        select *
+        from {{ ref('stg_erp__address') }}
+    ),
+
+    fonte_state_province as (
         select *
         from {{ ref('stg_erp__stateprovince') }}
-    )
+    ),
 
-    , countryregion as (
+    fonte_country_region as (
         select *
         from {{ ref('stg_erp__countryregion') }}
+    ),
+
+    enriquecer_address as (
+        select 
+            addr.address_pk,  -- CHAVE PRIMÁRIA
+            addr.city,
+            addr.postal_code,
+            sp.state_province_pk,
+            sp.state_province_name,
+            cr.country_region_pk,
+            cr.country_region_name
+        from fonte_address addr
+        left join fonte_state_province sp on addr.state_province_fk = sp.state_province_pk
+        left join fonte_country_region cr on sp.country_region_fk = cr.country_region_pk
     )
 
-    , salesterritory as (
-        select *
-        from {{ ref('stg_erp__salesterritory') }}
-    )
+select * from enriquecer_address
 
-    , enriquecer_territory as (
-        select
-            stateprovince.state_province_pk
-            , stateprovince.state_province_name
-            , stateprovince.territory_fk
-            , countryregion.country_region_pk
-            , countryregion.country_region_name
-            , salesterritory.sales_territory_pk
-            , salesterritory.sales_territory_name
-        from stateprovince
-        left join countryregion on stateprovince.country_region_fk = countryregion.country_region_pk
-        left join salesterritory on stateprovince.territory_fk = salesterritory.sales_territory_pk
-    )
 
-select *
-from enriquecer_territory
 

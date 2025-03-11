@@ -1,5 +1,5 @@
 WITH sales AS (
-    -- Modelo já convertido para a moeda de referência
+    -- Modelo já convertido para a moeda de referência, incluindo salesperson_fk
     SELECT * FROM {{ ref('int_sales_prep_currency_sales') }}
 ),
 
@@ -27,7 +27,9 @@ metrics AS (
         od.sales_order_fk,       -- FK do pedido
         s.customer_fk,
         s.credit_card_fk,
+        s.address_fk,
         s.sales_territory_fk,
+        s.sales_person_fk,       -- Adicionado salesperson_fk
         s.order_date,
         od.product_fk,
         od.order_qty,

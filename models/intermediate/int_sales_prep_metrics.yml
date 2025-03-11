@@ -1,83 +1,87 @@
 models:
-  - name: int_sales_prep_metrics  
-    description: "Este modelo contém os dados detalhados de vendas com cálculos de receita bruta, líquida, frete e impostos rateados, além de valores totais por item e por pedido."
+  - name: int_sales_prep_metrics
+    description: |
+      A tabela `int_prep_metrics` contém métricas detalhadas de vendas por item de pedido. 
+      Ela combina informações de pedidos e produtos, incluindo valores de receita bruta e líquida, descontos, 
+      alocação de frete e impostos, além dos totais por item e pedido.
+
     columns:
       - name: sales_order_item_pk
         description: "Chave primária do item do pedido."
         tests:
+          - not_null
           - unique
-          - not_null
-      - name: sales_order_fk
-        description: "Chave estrangeira do pedido."
-        tests:
-          - not_null
-      - name: customer_fk
-        description: "Chave estrangeira do cliente."
-        tests:
-          - not_null
-      - name: credit_card_fk
-        description: "Chave estrangeira do cartão de crédito utilizado na compra."
-      - name: sales_territory_fk
-        description: "Chave estrangeira do território de vendas."
-        tests:
-          - not_null
-      - name: order_date
-        description: "Data do pedido."
-        tests:
-          - not_null
-      - name: product_fk
-        description: "Chave estrangeira do produto."
-        tests:
-          - not_null
-      - name: order_qty
-        description: "Quantidade do pedido."
-        tests:
-          - not_null
-      - name: unit_price
-        description: "Preço unitário do produto."
-        tests:
-          - not_null
-      - name: unit_price_discount
-        description: "Desconto aplicado no preço unitário do produto."
-      - name: gross_revenue
-        description: "Receita bruta do item (quantidade * preço unitário)."
-        tests:
-          - not_null
-      - name: total_discount
-        description: "Desconto total do item (quantidade * desconto unitário)."
-        tests:
-          - not_null
-      - name: net_revenue
-        description: "Receita líquida do item (receita bruta - desconto total)."
-        tests:
-          - not_null
-      - name: freight_allocation
-        description: "Valor de frete rateado por item (frete total / total de itens do pedido)."
-        tests:
-          - not_null
-      - name: tax_allocation
-        description: "Valor de imposto rateado por item (imposto total / total de itens do pedido)."
-        tests:
-          - not_null
-      - name: total_per_item
-        description: "Valor total por item, incluindo receita líquida, frete e imposto rateados."
-        tests:
-          - not_null
-      - name: subtotal
-        description: "Subtotal do pedido, somando a receita líquida de todos os itens."
-        tests:
-          - not_null
-      - name: total_order_value
-        description: "Valor total do pedido, somando o total de todos os itens, incluindo frete e imposto rateados."
-        tests:
-          - not_null
-      - name: status
-        description: "Status atual do pedido."
-        tests:
-          - not_null
 
-    meta:
-      owner: "Equipe de Vendas"
-      last_modified: "2025-03-07"
-      source: "Modelo de preparação de vendas com métricas detalhadas"
-      documentation: "Este modelo agrega informações detalhadas sobre pedidos, incluindo métricas de receita bruta, líquida, descontos, frete, impostos e valores totais por item e por pedido."
+      - name: sales_order_fk
+        description: "Chave estrangeira para o pedido de venda."
+
+      - name: customer_fk
+        description: "Chave estrangeira para o cliente associado ao pedido."
+
+      - name: credit_card_fk
+        description: "Chave estrangeira para o cartão de crédito utilizado no pagamento."
+
+      - name: address_fk
+        description: "Chave estrangeira para o endereço associado ao pedido."
+
+      - name: sales_territory_fk
+        description: "Chave estrangeira para o território de vendas relacionado ao pedido."
+
+      - name: sales_person_fk
+        description: "Chave estrangeira para o vendedor responsável pela venda."
+
+      - name: order_date
+        description: "Data do pedido de venda."
+
+      - name: product_fk
+        description: "Chave estrangeira para o produto vendido no pedido."
+
+      - name: order_qty
+        description: "Quantidade do produto vendida no pedido."
+
+      - name: unit_price
+        description: "Preço unitário do produto no momento da venda."
+
+      - name: unit_price_discount
+        description: "Valor do desconto unitário aplicado ao produto."
+
+      - name: gross_revenue
+        description: "Receita bruta do item, calculada como `order_qty * unit_price`."
+
+      - name: total_discount
+        description: "Desconto total aplicado ao item, calculado como `order_qty * unit_price_discount`."
+
+      - name: net_revenue
+        description: |
+          Receita líquida do item, calculada como `gross_revenue - total_discount`. 
+          Representa o valor final após os descontos.
+
+      - name: freight_allocation
+        description: |
+          Alocação do valor do frete proporcional ao item, calculado como `total_frete / total_itens` 
+          para o respectivo pedido.
+
+      - name: tax_allocation
+        description: |
+          Alocação do imposto proporcional ao item, calculado como `total_imposto / total_itens` 
+          para o respectivo pedido.
+
+      - name: total_per_item
+        description: |
+          Valor total do item, incluindo receita líquida, frete e imposto alocados.
+          Calculado como `net_revenue + freight_allocation + tax_allocation`.
+
+      - name: subtotal
+        description: |
+          Subtotal do pedido, calculado como a soma de `net_revenue` dos itens do pedido, 
+          usando uma janela `PARTITION BY sales_order_fk`.
+
+      - name: total_order_value
+        description: |
+          Valor total do pedido, incluindo receita líquida, frete e imposto rateados.
+          Calculado como a soma de `total_per_item` por pedido, usando `PARTITION BY sales_order_fk`.
+
+      - name: status
+        description: "Status do pedido no sistema."
+
+

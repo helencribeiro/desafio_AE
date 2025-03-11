@@ -1,0 +1,20 @@
+models:
+  - name: int_sales_prep_salesreason
+    description: |
+      A tabela `sales_order_sales_reason` mapeia os motivos de venda associados a cada pedido de venda. 
+      Ela relaciona os pedidos de venda aos motivos cadastrados no sistema, permitindo análises sobre os 
+      principais fatores que influenciam as compras dos clientes.
+
+    columns:
+      - name: sales_order_fk
+        description: "Chave estrangeira que referencia o pedido de venda."
+        tests:
+          - not_null
+
+      - name: sales_reason_fk
+        description: "Chave estrangeira que referencia o motivo da venda."
+
+      - name: sales_reason_name
+        description: "Nome do motivo da venda associado ao pedido."
+
+
